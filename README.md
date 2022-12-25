@@ -1,3 +1,10 @@
+[![Latest Stable Version](http://poser.pugx.org/dd4you/dpanel/v)](https://packagist.org/packages/dd4you/dpanel)
+[![Daily Downloads](http://poser.pugx.org/dd4you/dpanel/d/daily)](https://packagist.org/packages/dd4you/dpanel)
+[![Monthly Downloads](http://poser.pugx.org/dd4you/dpanel/d/monthly)](https://packagist.org/packages/dd4you/dpanel)
+[![Total Downloads](http://poser.pugx.org/dd4you/dpanel/downloads)](https://packagist.org/packages/dd4you/dpanel)
+[![License](http://poser.pugx.org/dd4you/dpanel/license)](https://packagist.org/packages/dd4you/dpanel)
+[![PHP Version Require](http://poser.pugx.org/dd4you/dpanel/require/php)](https://packagist.org/packages/dd4you/dpanel)
+
 # DPanel Package
 
 ## This is modern Admin Panel developed By DD4You.in with tailwind css. It's help to create admin panel with prebuild login system

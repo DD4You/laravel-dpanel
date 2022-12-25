@@ -8,6 +8,7 @@
 
     <title>@yield('title')</title>
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ asset('dd4you/dpanel/js/cute-alert/style.css') }}">
     @vite('resources/css/app.css')
     @stack('css')
 
@@ -61,8 +62,9 @@
         </div>
     </main>
 
-    @stack('scripts')
     <script src="{{ asset('dd4you/dpanel/js/dd4you.js') }}"></script>
+    <script src="{{ asset('dd4you/dpanel/js/cute-alert/cute-alert.js') }}"></script>
+    @stack('scripts')
     <script>
         @if (Session::has('success'))
             cuteToast({
