@@ -8,11 +8,9 @@ use DD4You\Dpanel\Http\Middleware\DdAuth;
 use DD4You\Dpanel\Http\Middleware\DdGuest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
-use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\Facades\File;
 
 class DpanelServiceProvider extends ServiceProvider
@@ -29,8 +27,12 @@ class DpanelServiceProvider extends ServiceProvider
 
         // Register a group of middleware.
         $router->middlewareGroup(config('dpanel.prefix'), [
-            StartSession::class,
-            ShareErrorsFromSession::class
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
 
         $router->aliasMiddleware('dd.auth', DdAuth::class);
