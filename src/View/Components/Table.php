@@ -4,7 +4,7 @@ namespace DD4You\Dpanel\View\Components;
 
 use Illuminate\View\Component;
 
-class Container extends Component
+class Table extends Component
 {
     public function __construct()
     {
