@@ -7,6 +7,14 @@
 
 # DPanel Package
 
+## You can follow this video tutorial as well for installation.
+
+[<img src="https://img.youtube.com/vi/MYtUdT-vPBI/0.jpg" width="250">](https://youtu.be/MYtUdT-vPBI)
+
+## Watch Other Lavavel tutorial here
+
+[<img src="https://img.youtube.com/vi/MYtUdT-vPBI/0.jpg" width="580">](https://www.youtube.com/channel/UCJow0oaJRC3dWIXIdVcm6Qg?sub_confirmation=1))
+
 ## This is modern Admin Panel developed By DD4You.in with tailwind css. It's help to create admin panel with prebuild login system
 
 ![dpanel](https://user-images.githubusercontent.com/41217230/209454903-0a8692ff-f9c0-481f-975a-a2cc3f86920a.png)

@@ -1,4 +1,4 @@
-@extends('dpanel::layouts.guest')
+@extends('dpanel::auth.layout')
 
 @section('title', 'DPanel Login')
 
@@ -31,20 +31,12 @@
 
 @section('body_content')
     <div class="flex items-center justify-center min-h-screen">
-        <div class="relative w-11/12 md:w-1/4 mx-auto bg-gray-800 p-3 rounded-md shadow-lg">
+        <div class="relative w-11/12 md:w-1/4 mx-auto bg-white p-3 rounded-md shadow-lg">
             <h1 class="text-2xl font-medium text-center ">DPanel Login</h1>
             <form action="{{ route(config('dpanel.prefix') . '.login') }}" method="post"
                 class="grid grid-cols-1 gap-4 md:gap-3 mt-6 mb-2">
 
-                @if ($errors->any())
-                    <div class="border bg-red-50 border-red-500 text-red-500 text-sm rounded px-2 py-1">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                <x-dpanel::input-error-msg />
 
                 @csrf
                 <div>
@@ -59,10 +51,10 @@
                 </div>
 
                 <button
-                    class="px-2 py-1 mt-4 shadow-md rounded focus:outline-none bg-violet-500 hover:bg-violet-600 duration-300 font-medium">Login</button>
+                    class="px-2 py-1 mt-4 shadow-md rounded focus:outline-none text-white bg-violet-500 hover:bg-violet-600 duration-300 font-medium">Login</button>
             </form>
             <a href="{{ route(config('dpanel.prefix') . '.forgot') }}"
-                class="text-sm text-gray-200 hover:text-blue-500 duration-300">Forgot
+                class="text-sm text-gray-400 hover:text-blue-500 duration-300">Forgot
                 Password?</a>
         </div>
     </div>

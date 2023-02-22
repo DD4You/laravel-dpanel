@@ -2,7 +2,7 @@
     setTimeout(() => {
         Highcharts.chart('{{ $chartId }}', {
             chart: {
-                backgroundColor: '#1f2937',
+                // backgroundColor: '#1f2937',
                 type: 'pie',
                 options3d: {
                     enabled: true,
@@ -12,9 +12,9 @@
             },
             title: {
                 text: "{{ $chartTitle ?? '' }}",
-                style: {
-                    "color": '#ffffff',
-                }
+                // style: {
+                //     "color": '#ffffff',
+                // }
             },
             accessibility: {
                 point: {
@@ -43,4 +43,4 @@
         });
     }, 1000);
 </script>
-<div id="{{ $chartId }}" class="w-full bg-gray-800 rounded-md shadow-lg hover:shadow-xl duration-300"></div>
+<div id="{{ $chartId }}" class="w-full bg-white rounded-md shadow-lg hover:shadow-xl duration-300"></div>

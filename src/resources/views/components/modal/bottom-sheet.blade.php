@@ -7,7 +7,7 @@
                 class='bx bx-x border border-red-500 w-6 h-6 text-2xl flex items-center justify-center bg-red-50 rounded-full text-red-500 cursor-pointer'></i>
         </div>
 
-        <h1 class="text-center font-bold text-white uppercase">{{ $title }}</h1>
+        <h1 class="text-center font-bold uppercase">{{ $title }}</h1>
         <hr class="my-2">
 
         <div class="px-3 md:px-0">
