@@ -79,7 +79,7 @@ class InstallDpanel extends Command
         }
         # PUBLISH DashboardController.php END
 
-        # PUBLISH app.blade.php and dashboard.blade.php
+        # PUBLISH app.blade.php and dashboard.blade.php and pagination.blade.php
         $this->info('Publishing Dpanel Ui file...');
 
         if (!self::isExists('resources\views\dpanel\layouts\app.blade.php')) {
@@ -102,6 +102,17 @@ class InstallDpanel extends Command
                 self::publishDpanelApp('dashboard.blade.php');
             } else {
                 $this->info('Existing Dpanel dashboard file was not overwritten');
+            }
+        }
+        if (!self::isExists('resources\views\dpanel\layouts\pagination.blade.php')) {
+            self::publishDpanelAppLayout('pagination.blade.php');
+            $this->info('Published Dpanel pagination');
+        } else {
+            if ($this->shouldOverwrite('Dpanel pagination')) {
+                $this->info('Overwriting Dpanel pagination file...');
+                self::publishDpanelAppLayout('pagination.blade.php');
+            } else {
+                $this->info('Existing Dpanel pagination file was not overwritten');
             }
         }
         self::publishAssets();
