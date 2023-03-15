@@ -19,11 +19,10 @@ class Setting extends Model
 
             return true;
         }
-        [$label, $value] = $valueArr;
 
         $settings = $this->getModelName()->updateOrCreate(
             ['key' => $key],
-            ['label' => $label, 'value' => $value]
+            ['label' => $valueArr['label'], 'value' => $valueArr['value']]
         );
         $this->forgetCache();
 
