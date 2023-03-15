@@ -60,6 +60,13 @@ class DpanelServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/assets/' => public_path('dd4you/dpanel/'),
             ], 'dpanel-asset');
+
+            if (!class_exists('CreateSettingsTable')) {
+                $this->publishes([
+                    __DIR__ . '/database/migrations/create_settings_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_settings_table.php'),
+                    __DIR__ . '/database/seeders/SettingsSeeder.php.stub' => database_path('seeders/SettingsSeeder.php'),
+                ], 'migrations');
+            }
         }
     }
     public function register()
