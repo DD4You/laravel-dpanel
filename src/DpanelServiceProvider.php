@@ -3,6 +3,7 @@
 namespace DD4You\Dpanel;
 
 use DD4You\Dpanel\Console\InstallDpanel;
+use DD4You\Dpanel\Console\InstallSetting;
 use DD4You\Dpanel\Models\Dpanel;
 use DD4You\Dpanel\Http\Middleware\DdAuth;
 use DD4You\Dpanel\Http\Middleware\DdGuest;
@@ -20,6 +21,7 @@ class DpanelServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallDpanel::class,
+                InstallSetting::class,
             ]);
         }
         // Middleware
@@ -62,6 +64,10 @@ class DpanelServiceProvider extends ServiceProvider
     }
     public function register()
     {
+        $this->app->bind('setting', function ($app) {
+            return new Setting();
+        });
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
     }
 
     protected function registerRoutes()
