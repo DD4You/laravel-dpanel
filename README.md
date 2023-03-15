@@ -5,7 +5,7 @@
 [![License](http://poser.pugx.org/dd4you/dpanel/license)](https://packagist.org/packages/dd4you/dpanel)
 [![PHP Version Require](http://poser.pugx.org/dd4you/dpanel/require/php)](https://packagist.org/packages/dd4you/dpanel)
 
-# DPanel Package
+# DPanel Package with [Global Setting](GlobalSetting.md)
 
 ## You can follow this video tutorial as well for installation.
 

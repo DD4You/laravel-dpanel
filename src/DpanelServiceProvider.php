@@ -3,6 +3,7 @@
 namespace DD4You\Dpanel;
 
 use DD4You\Dpanel\Console\InstallDpanel;
+use DD4You\Dpanel\Console\InstallSetting;
 use DD4You\Dpanel\Models\Dpanel;
 use DD4You\Dpanel\Http\Middleware\DdAuth;
 use DD4You\Dpanel\Http\Middleware\DdGuest;
@@ -20,6 +21,7 @@ class DpanelServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallDpanel::class,
+                InstallSetting::class,
             ]);
         }
         // Middleware
@@ -58,10 +60,21 @@ class DpanelServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/assets/' => public_path('dd4you/dpanel/'),
             ], 'dpanel-asset');
+
+            if (!class_exists('CreateSettingsTable')) {
+                $this->publishes([
+                    __DIR__ . '/database/migrations/create_settings_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_settings_table.php'),
+                    __DIR__ . '/database/seeders/SettingsSeeder.php.stub' => database_path('seeders/SettingsSeeder.php'),
+                ], 'migrations');
+            }
         }
     }
     public function register()
     {
+        $this->app->bind('setting', function ($app) {
+            return new Setting();
+        });
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
     }
 
     protected function registerRoutes()

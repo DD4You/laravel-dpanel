@@ -12,13 +12,19 @@
   "autoload": {
     "psr-4": {
       "DD4You\\Dpanel\\": "src/"
-    }
+    },
+    "files": [
+      "src/Helpers/settingsHelper.php"
+    ]
   },
   "extra": {
     "laravel": {
       "providers": [
         "DD4You\\Dpanel\\DpanelServiceProvider"
-      ]
+      ],
+      "aliases": {
+        "Setting": "DD4You\\Dpanel\\Facades\\Setting"
+      }
     }
   },
   "authors": [
