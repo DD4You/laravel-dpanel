@@ -52,6 +52,11 @@
         <x-dpanel::sidebar.item name="Menu 5" icon="bx-menu" url=""
             isActive="{{ request()->segment(2) == 'menu-2' }}" />
 
+        {{-- Global Settings Menu --}}
+        <x-dpanel::sidebar.item name="Global Settings" icon="bx-cog"
+            url="{{ route(config('dpanel.prefix') . '.global-settings.index') }}"
+            isActive="{{ request()->segment(2) == 'global-settings' }}" />
+
     </x-dpanel::sidebar.container>
 
 
@@ -64,6 +69,7 @@
 
     <script src="{{ asset('dd4you/dpanel/js/dd4you.js') }}"></script>
     <script src="{{ asset('dd4you/dpanel/js/cute-alert/cute-alert.js') }}"></script>
+    <script src="{{ asset('dd4you/dpanel/js/jquery-3.6.1.min.js') }}"></script>
     @stack('scripts')
     <script>
         @if (Session::has('success'))

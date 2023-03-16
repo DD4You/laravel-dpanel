@@ -1,16 +1,10 @@
-# Settings
+# Global Settings
 
 Store general settings like website name, logo url, contacts in the database easily.
 Everything is cached, so no extra query is done.
 You can also get fresh values from the database directly if you need.
 
 ## Installation
-
-Install the package via artisan command
-
-```bash
-php artisan dd4you:install-global-setting
-```
 
 Migrate the database
 
@@ -30,7 +24,10 @@ php artisan db:seed --class=SettingsSeeder
 To store settings on database
 
 ```code
-settings()->set('key','value');
+settings()->set(
+        'key',
+        ['label'=>'Label Name','value'=>'Value Name']
+    );
 ```
 
 You can also set multiple settings at once

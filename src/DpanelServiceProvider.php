@@ -21,7 +21,6 @@ class DpanelServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallDpanel::class,
-                InstallSetting::class,
             ]);
         }
         // Middleware
@@ -61,9 +60,9 @@ class DpanelServiceProvider extends ServiceProvider
                 __DIR__ . '/assets/' => public_path('dd4you/dpanel/'),
             ], 'dpanel-asset');
 
-            if (!class_exists('CreateSettingsTable')) {
+            if (!class_exists('CreateGlobalSettingsTable')) {
                 $this->publishes([
-                    __DIR__ . '/database/migrations/create_settings_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_settings_table.php'),
+                    __DIR__ . '/database/migrations/create_global_settings_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_global_settings_table.php'),
                     __DIR__ . '/database/seeders/SettingsSeeder.php.stub' => database_path('seeders/SettingsSeeder.php'),
                 ], 'migrations');
             }
@@ -71,8 +70,8 @@ class DpanelServiceProvider extends ServiceProvider
     }
     public function register()
     {
-        $this->app->bind('setting', function ($app) {
-            return new Setting();
+        $this->app->bind('g_settings', function ($app) {
+            return new GlobalSetting();
         });
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
     }

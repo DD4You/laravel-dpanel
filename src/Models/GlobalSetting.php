@@ -5,10 +5,10 @@ namespace DD4You\Dpanel\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
-class Setting extends Model
+class GlobalSetting extends Model
 {
     protected $guarded = ['id'];
-    protected $table = 'settings';
+    protected $table = 'global_settings';
 
     public function set($key, $valueArr = null)
     {
@@ -25,6 +25,7 @@ class Setting extends Model
             [
                 'type' => $valueArr['type'] ?? $this->textType(),
                 'label' => $valueArr['label'],
+                'hint' => $valueArr['hint'] ?? 'Enter ' . $valueArr['label'],
                 'value' => $valueArr['value'],
             ]
         );
@@ -35,7 +36,7 @@ class Setting extends Model
 
     public function getModelName()
     {
-        return app('\DD4You\Dpanel\Models\Setting');
+        return app('\DD4You\Dpanel\Models\GlobalSetting');
     }
 
     public function forgetCache()
@@ -72,10 +73,10 @@ class Setting extends Model
     public function getAll($fetch = false)
     {
         if ($fetch) {
-            $settings = $this->getModelName()->all(['key', 'type', 'label', 'value']);
+            $settings = $this->getModelName()->all(['key', 'type', 'label', 'hint', 'value']);
         } else {
             $settings = Cache::rememberForever($this->getCacheName(), function () {
-                return $this->getModelName()->all(['key', 'type', 'label', 'value']);
+                return $this->getModelName()->all(['key', 'type', 'label', 'hint', 'value']);
             });
         }
 
@@ -105,6 +106,10 @@ class Setting extends Model
     public function textType()
     {
         return 'text';
+    }
+    public function longTextType()
+    {
+        return 'longtext';
     }
 
     public function fileType()

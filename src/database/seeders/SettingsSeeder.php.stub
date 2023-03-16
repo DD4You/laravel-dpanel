@@ -47,7 +47,7 @@ class SettingsSeeder extends Seeder
             ],
             'primary_phone' => [
                 'label' => 'Primary Phone Number',
-                'value' => '+91 7007916170'
+                'value' => '+91 70079XXXXX'
             ],
             'secondary_phone' => [
                 'label' => 'Secondary Phone Number',
@@ -80,6 +80,11 @@ class SettingsSeeder extends Seeder
             'youtube_url' => [
                 'label' => 'Youtube',
                 'value' => 'https://youtube.com/@dd4you'
+            ],
+            'privacy_policy' => [
+                'label' => 'Privacy Policy',
+                'value' => '',
+                'type' => settings()->longTextType(),
             ],
         ];
 
