@@ -23,31 +23,31 @@ class DpanelServiceProvider extends ServiceProvider
                 InstallDpanel::class,
             ]);
         }
-        // Middleware
-        $router = $this->app->make(Router::class);
+        // # Middleware
+        // $router = $this->app->make(Router::class);
 
-        // Register a group of middleware.
-        $router->middlewareGroup(config('dpanel.prefix'), [
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ]);
+        // # Register a group of middleware.
+        // $router->middlewareGroup(config('dpanel.prefix'), [
+        //     \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        //     \Illuminate\Session\Middleware\StartSession::class,
+        //     \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        //     \App\Http\Middleware\VerifyCsrfToken::class,
+        //     \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        // ]);
 
-        $router->aliasMiddleware('dd.auth', DdAuth::class);
-        $router->aliasMiddleware('dd.guest', DdGuest::class);
-        // Middleware ============================================
+        // $router->aliasMiddleware('dd.auth', DdAuth::class);
+        // $router->aliasMiddleware('dd.guest', DdGuest::class);
+        // # Middleware ============================================
 
-        Config::set('auth.guards.dpanel', [
-            'driver' => 'session',
-            'provider' => 'dpanels',
-        ]);
+        // Config::set('auth.guards.dpanel', [
+        //     'driver' => 'session',
+        //     'provider' => 'dpanels',
+        // ]);
 
-        Config::set('auth.providers.dpanels', [
-            'driver' => 'eloquent',
-            'model' => Dpanel::class,
-        ]);
+        // Config::set('auth.providers.dpanels', [
+        //     'driver' => 'eloquent',
+        //     'model' => Dpanel::class,
+        // ]);
 
         $this->registerRoutes();
 
@@ -59,21 +59,10 @@ class DpanelServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/assets/' => public_path('dd4you/dpanel/'),
             ], 'dpanel-asset');
-
-            if (!class_exists('CreateGlobalSettingsTable')) {
-                $this->publishes([
-                    __DIR__ . '/database/migrations/create_global_settings_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_global_settings_table.php'),
-                    __DIR__ . '/database/seeders/SettingsSeeder.php.stub' => database_path('seeders/SettingsSeeder.php'),
-                ], 'migrations');
-            }
         }
     }
     public function register()
     {
-        $this->app->bind('g_settings', function ($app) {
-            return new GlobalSetting();
-        });
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
     }
 
     protected function registerRoutes()
@@ -81,7 +70,7 @@ class DpanelServiceProvider extends ServiceProvider
         if (File::exists(base_path('routes/dpanel.php'))) {
             Route::prefix(config('dpanel.prefix'))
                 ->name(config('dpanel.prefix') . '.')
-                ->middleware(['dd.auth:dpanel', config('dpanel.prefix')])
+                // ->middleware(['dd.auth:dpanel', config('dpanel.prefix')])
                 ->group(function () {
                     $this->loadRoutesFrom(base_path('routes/dpanel.php'));
                 });
@@ -90,7 +79,7 @@ class DpanelServiceProvider extends ServiceProvider
 
         Route::prefix(config('dpanel.prefix'))
             ->name(config('dpanel.prefix') . '.')
-            ->middleware(['dd.guest:dpanel', config('dpanel.prefix')])
+            // ->middleware(['dd.guest:dpanel', config('dpanel.prefix')])
             ->group(function () {
                 $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
             });

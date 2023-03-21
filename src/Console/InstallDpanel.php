@@ -189,10 +189,7 @@ class InstallDpanel extends Command
 
         $this->call('vendor:publish', $params);
 
-        $params = [
-            '--provider' => "DD4You\Dpanel\DpanelServiceProvider",
-            '--tag' => "migrations"
-        ];
-        $this->call('vendor:publish', $params);
+        // php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+        // php artisan optimize:clear
     }
 }

@@ -143,3 +143,17 @@ If you have any feedback, please reach out at vinay@dd4you.in or submit a pull r
 ## Badges
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+
+## Update Your User Migraction file
+
+```bash
+$table->id();
+$table->string('avatar')->nullable();
+$table->string('first_name');
+$table->string('last_name');
+$table->string('email');
+$table->timestamp('email_verified_at')->nullable();
+$table->string('password');
+$table->rememberToken();
+$table->timestamps();
+```

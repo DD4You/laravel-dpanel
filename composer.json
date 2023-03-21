@@ -12,19 +12,13 @@
   "autoload": {
     "psr-4": {
       "DD4You\\Dpanel\\": "src/"
-    },
-    "files": [
-      "src/Helpers/settingsHelper.php"
-    ]
+    }
   },
   "extra": {
     "laravel": {
       "providers": [
         "DD4You\\Dpanel\\DpanelServiceProvider"
-      ],
-      "aliases": {
-        "Setting": "DD4You\\Dpanel\\Facades\\Setting"
-      }
+      ]
     }
   },
   "authors": [
@@ -33,6 +27,10 @@
       "email": "vinay@dd4you.in"
     }
   ],
-  "minimum-stability": "dev",
-  "require": {}
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "require": {
+    "spatie/laravel-permission": "^5.9",
+    "dd4you/lgs": "^1.0"
+  }
 }
