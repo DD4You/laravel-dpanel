@@ -2,9 +2,10 @@
 
 namespace DD4You\Dpanel\Http\Controllers;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use DD4You\Dpanel\Mail\ForgotPassword;
-use DD4You\Dpanel\Models\Dpanel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -22,8 +23,9 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
+        $credentials['role'] =  UserRole::ADMIN;
 
-        if (Auth::guard('dpanel')->attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             return redirect()->route(config('dpanel.prefix') . '.dashboard');
@@ -42,12 +44,14 @@ class AuthController extends Controller
             'email' => 'required|email'
         ]);
 
-        $user = Dpanel::where('email', $request->email)->first();
+        $user = User::where([
+            'email' => $request->email,
+            'role' => UserRole::ADMIN
+        ])->first();
 
         if (!$user) {
             return back()->withError('We do not recognize your email address')->onlyInput('email');
         }
-
         $token = Str::random(64);
         $user->remember_token = $token;
         $user->save();
@@ -73,7 +77,10 @@ class AuthController extends Controller
         ]);
 
         # Update Password
-        $user = Dpanel::where('remember_token', $request->token)->first();
+        $user = User::where([
+            'remember_token' => $request->token,
+            'role' => UserRole::ADMIN
+        ])->first();
         if (!$user) {
             return back()->withError('Invalid Token');
         } else {
@@ -86,7 +93,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('dpanel')->logout();
+        Auth::logout();
 
         $request->session()->invalidate();
 

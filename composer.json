@@ -1,36 +1,35 @@
 {
-  "name": "dd4you/dpanel",
-  "description": "This is Admin Panel By DD4You.in with tailwind css. It's help to create admin panel with prebuild login system",
-  "keywords": [
-    "dpanel",
-    "laravel",
-    "admin panel",
-    "tailwind css"
-  ],
-  "type": "library",
-  "license": "MIT",
-  "autoload": {
-    "psr-4": {
-      "DD4You\\Dpanel\\": "src/"
+    "name": "dd4you/dpanel",
+    "description": "This is Admin Panel By DD4You.in with tailwind css. It's help to create admin panel with prebuild login system",
+    "keywords": [
+        "dpanel",
+        "laravel",
+        "admin panel",
+        "tailwind css"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "DD4You\\Dpanel\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DD4You\\Dpanel\\DpanelServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Vinay Singh",
+            "email": "vinay@dd4you.in"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "dd4you/lgs": "^1.0",
+        "doctrine/dbal": "^3.6"
     }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "DD4You\\Dpanel\\DpanelServiceProvider"
-      ]
-    }
-  },
-  "authors": [
-    {
-      "name": "Vinay Singh",
-      "email": "vinay@dd4you.in"
-    }
-  ],
-  "minimum-stability": "stable",
-  "prefer-stable": true,
-  "require": {
-    "spatie/laravel-permission": "^5.9",
-    "dd4you/lgs": "^1.0"
-  }
 }

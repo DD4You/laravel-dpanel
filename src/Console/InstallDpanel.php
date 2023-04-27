@@ -79,6 +79,21 @@ class InstallDpanel extends Command
         }
         # PUBLISH DashboardController.php END
 
+        # PUBLISH User.php Model
+        $this->info('Publishing User Model...');
+        if (!self::isExists('app\Models\User.php')) {
+            self::publishUserModel('User.php');
+            $this->info('Published User Model');
+        } else {
+            if ($this->shouldOverwrite('User model')) {
+                $this->info('Overwriting User Model');
+                self::publishUserModel('User.php');
+            } else {
+                $this->info('Existing User Model was not overwritten');
+            }
+        }
+        # PUBLISH User.php Model END
+
         # PUBLISH app.blade.php and dashboard.blade.php and pagination.blade.php
         $this->info('Publishing Dpanel Ui file...');
 
@@ -167,6 +182,11 @@ class InstallDpanel extends Command
         self::createFile(app_path('Http/Controllers/Dpanel') . DIRECTORY_SEPARATOR, $fileName, self::getContent($fileName));
     }
 
+    protected static function publishUserModel($fileName)
+    {
+        self::createFile(app_path('Models') . DIRECTORY_SEPARATOR, $fileName, file_get_contents(__DIR__ . "/../Models/User.php.stub"));
+    }
+
     protected static function publishDpanelAppLayout($fileName)
     {
         self::createFile(resource_path('views/dpanel/layouts') . DIRECTORY_SEPARATOR, $fileName, self::getContent($fileName));
@@ -189,7 +209,17 @@ class InstallDpanel extends Command
 
         $this->call('vendor:publish', $params);
 
-        // php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
-        // php artisan optimize:clear
+        $params = [
+            '--provider' => "DD4You\Dpanel\DpanelServiceProvider",
+            '--tag' => "migrations"
+        ];
+        $this->call('vendor:publish', $params);
+
+        $params = [
+            '--provider' => "DD4You\Dpanel\DpanelServiceProvider",
+            '--tag' => "enums",
+            '--force' => true
+        ];
+        $this->call('vendor:publish', $params);
     }
 }
