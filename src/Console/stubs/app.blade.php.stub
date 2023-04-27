@@ -32,7 +32,7 @@
 
     <x-dpanel::sidebar.container name="DD Admin">
 
-        <x-dpanel::sidebar.item name="Dashboard" icon="bx-home" url=""
+        <x-dpanel::sidebar.item name="Dashboard" icon="bx-home" url="{{ route(config('dpanel.prefix') . '.dashboard') }}"
             isActive="{{ request()->segment(2) == 'dashboard' }}" />
 
         <x-dpanel::sidebar.dropdown name="Menu 1" icon="bx-menu" isActive="{{ request()->segment(2) == 'menu-1' }}">
@@ -53,9 +53,11 @@
             isActive="{{ request()->segment(2) == 'menu-2' }}" />
 
         {{-- Global Settings Menu --}}
-        <x-dpanel::sidebar.item name="Global Settings" icon="bx-cog"
-            url="{{ route(config('dpanel.prefix') . '.global-settings.index') }}"
-            isActive="{{ request()->segment(2) == 'global-settings' }}" />
+        @if (Schema::hasTable('global_settings'))
+            <x-dpanel::sidebar.item name="Global Settings" icon="bx-cog"
+                url="{{ route(config('dpanel.prefix') . '.global-settings.index') }}"
+                isActive="{{ request()->segment(2) == 'global-settings' }}" />
+        @endif
 
     </x-dpanel::sidebar.container>
 

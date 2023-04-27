@@ -17,7 +17,7 @@
 
 ## This is modern Admin Panel developed By DD4You.in with tailwind css. It's help to create admin panel with prebuild login system
 
-![dpanel](https://user-images.githubusercontent.com/41217230/209454903-0a8692ff-f9c0-481f-975a-a2cc3f86920a.png)
+![dpanel](https://user-images.githubusercontent.com/84115475/234857487-843dd26a-02f4-4ddf-9e5a-ffbb0ea824fe.png)
 
 Install Package via composer
 
@@ -29,7 +29,7 @@ Publish
 
 Add Seeder
 
-    $this->call(\DD4You\Dpanel\database\seeders\DpanelSeeder::class);
+    $this->call(\DD4You\Dpanel\database\seeders\UserSeeder::class);
 
 Install Tailwind Css if not install
 
@@ -144,7 +144,7 @@ If you have any feedback, please reach out at vinay@dd4you.in or submit a pull r
 
 ## Authors
 
--   [@dd4you](https://www.github.com/DD4You)
+- [@dd4you](https://www.github.com/DD4You)
 
 ## Badges
 
