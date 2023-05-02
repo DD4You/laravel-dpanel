@@ -16,8 +16,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'first_name' => config('dpanel.first_name'),
-            'last_name' => config('dpanel.last_name'),
+            'name' => config('dpanel.first_name') . ' ' . config('dpanel.last_name'),
             'email' => config('dpanel.email'),
             'password' => bcrypt(config('dpanel.password')),
             'role' => UserRole::ADMIN,

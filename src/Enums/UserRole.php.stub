@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum UserRole: int
 {
-    case USER = 0;
     case ADMIN = 1;
+    case USER = 0;
 
     public function isAdmin(): bool
     {
@@ -14,6 +14,14 @@ enum UserRole: int
     public function isUser(): bool
     {
         return $this === self::USER;
+    }
+
+    public function getRole(): string
+    {
+        return match ($this) {
+            self::ADMIN => 'admin',
+            self::USER => 'user',
+        };
     }
 
     public function getLabelText(): string

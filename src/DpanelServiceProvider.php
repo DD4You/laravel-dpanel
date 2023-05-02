@@ -6,6 +6,7 @@ use DD4You\Dpanel\Console\InstallDpanel;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\Support\Facades\File;
 
 class DpanelServiceProvider extends ServiceProvider
@@ -80,17 +81,5 @@ class DpanelServiceProvider extends ServiceProvider
 
         $bladeCompiler->directive('hasrole', fn ($args) => "<?php if({$bladeMethodWrapper}('hasRole', {$args})): ?>");
         $bladeCompiler->directive('endhasrole', fn () => '<?php endif; ?>');
-
-        $bladeCompiler->directive('hasanyrole', fn ($args) => "<?php if({$bladeMethodWrapper}('hasAnyRole', {$args})): ?>");
-        $bladeCompiler->directive('endhasanyrole', fn () => '<?php endif; ?>');
-
-        $bladeCompiler->directive('hasallroles', fn ($args) => "<?php if({$bladeMethodWrapper}('hasAllRoles', {$args})): ?>");
-        $bladeCompiler->directive('endhasallroles', fn () => '<?php endif; ?>');
-
-        $bladeCompiler->directive('unlessrole', fn ($args) => "<?php if(! {$bladeMethodWrapper}('hasRole', {$args})): ?>");
-        $bladeCompiler->directive('endunlessrole', fn () => '<?php endif; ?>');
-
-        $bladeCompiler->directive('hasexactroles', fn ($args) => "<?php if({$bladeMethodWrapper}('hasExactRoles', {$args})): ?>");
-        $bladeCompiler->directive('endhasexactroles', fn () => '<?php endif; ?>');
     }
 }
