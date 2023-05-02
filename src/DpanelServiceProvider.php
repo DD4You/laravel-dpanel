@@ -4,6 +4,7 @@ namespace DD4You\Dpanel;
 
 use App\Models\User;
 use DD4You\Dpanel\Console\InstallDpanel;
+use DD4You\Dpanel\Http\Middleware\AccessDpanel;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
