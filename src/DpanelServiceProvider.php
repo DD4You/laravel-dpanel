@@ -59,4 +59,38 @@ class DpanelServiceProvider extends ServiceProvider
             ], 'enums');
         }
     }
+
+    public function register()
+    {
+        $this->callAfterResolving('blade.compiler', fn (BladeCompiler $bladeCompiler) => $this->registerBladeExtensions($bladeCompiler));
+    }
+
+    public static function bladeMethodWrapper($method, $role, $guard = null): bool
+    {
+        return auth($guard)->check() && auth($guard)->user()->{$method}($role);
+    }
+
+    protected function registerBladeExtensions($bladeCompiler): void
+    {
+        $bladeMethodWrapper = '\\DD4You\\Dpanel\\DpanelServiceProvider::bladeMethodWrapper';
+
+        $bladeCompiler->directive('role', fn ($args) => "<?php if({$bladeMethodWrapper}('hasRole', {$args})): ?>");
+        $bladeCompiler->directive('elserole', fn ($args) => "<?php elseif({$bladeMethodWrapper}('hasRole', {$args})): ?>");
+        $bladeCompiler->directive('endrole', fn () => '<?php endif; ?>');
+
+        $bladeCompiler->directive('hasrole', fn ($args) => "<?php if({$bladeMethodWrapper}('hasRole', {$args})): ?>");
+        $bladeCompiler->directive('endhasrole', fn () => '<?php endif; ?>');
+
+        $bladeCompiler->directive('hasanyrole', fn ($args) => "<?php if({$bladeMethodWrapper}('hasAnyRole', {$args})): ?>");
+        $bladeCompiler->directive('endhasanyrole', fn () => '<?php endif; ?>');
+
+        $bladeCompiler->directive('hasallroles', fn ($args) => "<?php if({$bladeMethodWrapper}('hasAllRoles', {$args})): ?>");
+        $bladeCompiler->directive('endhasallroles', fn () => '<?php endif; ?>');
+
+        $bladeCompiler->directive('unlessrole', fn ($args) => "<?php if(! {$bladeMethodWrapper}('hasRole', {$args})): ?>");
+        $bladeCompiler->directive('endunlessrole', fn () => '<?php endif; ?>');
+
+        $bladeCompiler->directive('hasexactroles', fn ($args) => "<?php if({$bladeMethodWrapper}('hasExactRoles', {$args})): ?>");
+        $bladeCompiler->directive('endhasexactroles', fn () => '<?php endif; ?>');
+    }
 }

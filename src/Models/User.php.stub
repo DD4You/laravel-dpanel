@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -19,8 +21,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'avatar',
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'password',
         'role',
@@ -44,18 +45,19 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'role' => UserRole::class,
     ];
 
-    public function getFullNameAttribute()
-    {
-        return $this->first_name . " " . $this->last_name;
-    }
-
-    public function hasRole(mixed $roles): bool
+    public function hasRole($roles): bool
     {
         if (is_array($roles)) {
             return (bool) $this->whereIn('role', $roles)->count();
         }
         return (bool) $this->where('role', $roles)->count();
+    }
+
+    public function hasAnyRole(...$roles): bool
+    {
+        return $this->hasRole($roles);
     }
 }
