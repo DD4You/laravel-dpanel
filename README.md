@@ -39,6 +39,104 @@ Add Below code in tailwind.config.js
 
     "./vendor/dd4you/dpanel/src/resources/**/*.blade.php",
 
+# User Role
+
+## Check user role
+
+```
+if (auth()->user()->hasRole('admin')) {
+    return "I'm admin";
+} else {
+    return "I'm not admin";
+}
+```
+
+or
+
+```
+if (auth()->user()->hasRole('admin|user')) {
+    return "I'm an admin or user";
+} else {
+    return 'I have none of these roles';
+}
+```
+
+## Check user role in Blade file
+
+Check for a specific role:
+
+```
+@hasrole('admin')
+i'm admin
+@endhasrole
+```
+
+or
+
+```
+@hasrole('admin')
+i'm admin
+@else
+i'm not an admin
+@endhasrole
+```
+
+or
+
+```
+@role('admin')
+I am a admin!
+@endrole
+```
+
+or
+
+```
+@role('admin')
+I am a admin!
+@else
+I am not a admin...
+@endrole
+```
+
+Check for any role in a list:
+
+```
+
+@hasrole('admin|user')
+I am either a user or an admin or both!
+@endhasrole
+```
+
+or
+
+```
+@hasrole('admin|user')
+I am either a user or an admin or both!
+@else
+I have none of these roles...
+@endhasrole
+```
+
+or
+
+```
+@role('admin|user')
+I am either a user or an admin or both!
+@endrole
+```
+
+or
+
+```
+@role('admin|user')
+I am either a user or an admin or both!
+@else
+I have none of these roles...
+@endrole
+
+```
+
 # Global Settings
 
 Store general settings like website name, logo url, contacts in the database easily.
