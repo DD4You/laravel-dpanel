@@ -2,12 +2,15 @@
 
 namespace DD4You\Dpanel;
 
+use App\Models\User;
 use DD4You\Dpanel\Console\InstallDpanel;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\Support\Facades\File;
+use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Routing\Router;
 
 class DpanelServiceProvider extends ServiceProvider
 {
@@ -19,11 +22,19 @@ class DpanelServiceProvider extends ServiceProvider
             ]);
         }
 
+        $this->callAfterResolving(Gate::class, function (Gate $gate) {
+            $gate->define('role', function (User $user) {
+                return in_array($user->role->getRole(), config('dpanel.dpanel_access_roles'));
+            });
+        });
+
+        $this->app->make(Router::class)->aliasMiddleware('accessdpanel', AccessDpanel::class);
+
         # Register Routes Begin
         if (File::exists(base_path('routes/dpanel.php'))) {
             Route::prefix(config('dpanel.prefix'))
                 ->name(config('dpanel.prefix') . '.')
-                ->middleware(['web', 'auth'])
+                ->middleware(['web', 'auth', 'accessdpanel'])
                 ->group(function () {
                     $this->loadRoutesFrom(base_path('routes/dpanel.php'));
                 });

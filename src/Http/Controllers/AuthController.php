@@ -23,7 +23,6 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-        $credentials['role'] =  UserRole::ADMIN;
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();

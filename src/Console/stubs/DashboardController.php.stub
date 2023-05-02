@@ -9,7 +9,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-       abort_if(!auth()->user()->hasRole('admin'), 403, 'You don\'t have permission to access this.');
 
         $chart['column']['name'] = ['Total', '30 Days', '7 Days', 'Today'];
         $chart['column']['data'] = [1320, 1073, 1060, 813];
