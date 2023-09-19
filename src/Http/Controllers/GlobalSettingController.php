@@ -17,7 +17,7 @@ class GlobalSettingController extends Controller
     {
         foreach ($request->key as $key) {
 
-            $setting = settings()->get($key);
+            $setting = settings($key, false, false);
 
             if (in_array($setting['type'], ['text', 'longtext'])) {
                 settings()->set(
