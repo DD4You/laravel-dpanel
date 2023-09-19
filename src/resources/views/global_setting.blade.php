@@ -48,6 +48,14 @@
                     @if ($item->type == settings()->longTextType())
                         <textarea name="value-{{ $item->key }}" placeholder="{{ $item->hint }}" rows="3"
                             class="summernoteInline w-full p-1 rounded focus-within:outline-none">{{ $item->value }}</textarea>
+                    @elseif ($item->type == settings()->arrayType())
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            @foreach (json_decode($item->value) as $subitem)
+                                <input type="text" placeholder="Enter item {{ $loop->iteration }}"
+                                    name="value-{{ $item->key }}[]" value="{{ $subitem }}"
+                                    class="w-full p-1 rounded bg-white shadow focus-within:outline-none">
+                            @endforeach
+                        </div>
                     @else
                         <input type="text" placeholder="{{ $item->hint }}" name="value-{{ $item->key }}"
                             value="{{ $item->value }}"
