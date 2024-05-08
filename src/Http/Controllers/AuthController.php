@@ -2,7 +2,6 @@
 
 namespace DD4You\Dpanel\Http\Controllers;
 
-use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use DD4You\Dpanel\Mail\ForgotPassword;
@@ -43,14 +42,16 @@ class AuthController extends Controller
             'email' => 'required|email'
         ]);
 
-        $user = User::where([
-            'email' => $request->email,
-            'role' => UserRole::ADMIN
-        ])->first();
+        $user = User::where('email', $request->email)->first();
 
         if (!$user) {
             return back()->withError('We do not recognize your email address')->onlyInput('email');
         }
+
+        if (!in_array($user->role->getRole(), config('dpanel.dpanel_access_roles'))) {
+            return back()->withError('Access Denied! It\'s for only admin users')->onlyInput('email');
+        }
+
         $token = Str::random(64);
         $user->remember_token = $token;
         $user->save();
@@ -76,10 +77,7 @@ class AuthController extends Controller
         ]);
 
         # Update Password
-        $user = User::where([
-            'remember_token' => $request->token,
-            'role' => UserRole::ADMIN
-        ])->first();
+        $user = User::where('remember_token', $request->token)->first();
         if (!$user) {
             return back()->withError('Invalid Token');
         } else {
